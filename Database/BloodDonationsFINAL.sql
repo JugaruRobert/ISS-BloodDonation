@@ -1569,3 +1569,4 @@ insert into Users(Username, Password, Email, Role, CNP) values('Mihai', 'pass', 
 insert into Patients(CNP, FirstName, LastName, HospitalID, BloodTypeID) values ('0965236955212', 'Floricica', 'Neagoe', 'AFF84613-F87B-4D7A-8CC3-497856AF79FA','DBE83047-8457-40C3-9F13-CEE9F497B62C')
 insert into Requests VALUES ('1921126040011','1754253025586','DA464E8F-F981-44FC-AD08-9F8F39773FC6',1,20,20,20)
 insert into Requests VALUES ('0965236955212','1754253025586','DA464E8F-F981-44FC-AD08-9F8F39773FC6',2,30,40,20)
+---
