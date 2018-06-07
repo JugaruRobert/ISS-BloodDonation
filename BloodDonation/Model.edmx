@@ -1,0 +1,1410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BloodDonationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Address" Type="text" />
+          <Property Name="CityID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="BloodBanks">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="BloodDonationHistories">
+          <Key>
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DonorCNP" Type="nvarchar" MaxLength="15" />
+          <Property Name="DonatedForCNP" Type="nvarchar" MaxLength="15" />
+          <Property Name="DonationID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="BloodTypes">
+          <Key>
+            <PropertyRef Name="BloodTypeID" />
+          </Key>
+          <Property Name="BloodTypeID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Blood" Type="nvarchar" MaxLength="3" />
+          <Property Name="RH" Type="bit" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryID" Type="uniqueidentifier" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Diseases">
+          <Key>
+            <PropertyRef Name="DiseaseID" />
+          </Key>
+          <Property Name="DiseaseID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DiseasesResults">
+          <Key>
+            <PropertyRef Name="DiseaseID" />
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DiseaseID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DonationID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="JustForModels" Type="int" />
+        </EntityType>
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="DoctorCNP" />
+          </Key>
+          <Property Name="DoctorCNP" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="HospitalID" Type="uniqueidentifier" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Donors">
+          <Key>
+            <PropertyRef Name="CNP" />
+          </Key>
+          <Property Name="CNP" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="ResidenceID" Type="uniqueidentifier" />
+          <Property Name="AddressID" Type="uniqueidentifier" />
+          <Property Name="BloodTypeID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Hospitals">
+          <Key>
+            <PropertyRef Name="HospitalID" />
+          </Key>
+          <Property Name="HospitalID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DonorCNP" Type="nvarchar" MaxLength="15" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="CNP" />
+          </Key>
+          <Property Name="CNP" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HospitalID" Type="uniqueidentifier" />
+          <Property Name="BloodTypeID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Plasma">
+          <Key>
+            <PropertyRef Name="PlasmaID" />
+          </Key>
+          <Property Name="PlasmaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BankID" Type="uniqueidentifier" />
+          <Property Name="BloodTypeID" Type="uniqueidentifier" />
+          <Property Name="ExpirationDate" Type="date" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="RedBloodCells">
+          <Key>
+            <PropertyRef Name="RedBloodCellsID" />
+          </Key>
+          <Property Name="RedBloodCellsID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BankID" Type="uniqueidentifier" />
+          <Property Name="BloodTypeID" Type="uniqueidentifier" />
+          <Property Name="ExpirationDate" Type="date" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Requests">
+          <Key>
+            <PropertyRef Name="PatientCNP" />
+          </Key>
+          <Property Name="PatientCNP" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="DoctorCNP" Type="nvarchar" MaxLength="15" />
+          <Property Name="BloodBankID" Type="uniqueidentifier" />
+          <Property Name="Priority" Type="int" />
+          <Property Name="RedBloodCellsQuantity" Type="int" />
+          <Property Name="PlasmaQuantity" Type="int" />
+          <Property Name="TrombocitesQuantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Trombocites">
+          <Key>
+            <PropertyRef Name="TrombocitesID" />
+          </Key>
+          <Property Name="TrombocitesID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BankID" Type="uniqueidentifier" />
+          <Property Name="BloodTypeID" Type="uniqueidentifier" />
+          <Property Name="ExpirationDate" Type="date" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Role" Type="varchar" MaxLength="10" />
+          <Property Name="CNP" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Address">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Donors" Type="Self.Donors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Donors">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BankID">
+          <End Role="BloodBanks" Type="Self.BloodBanks" Multiplicity="0..1" />
+          <End Role="Plasma" Type="Self.Plasma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Plasma">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BankIDTrombocites">
+          <End Role="BloodBanks" Type="Self.BloodBanks" Multiplicity="0..1" />
+          <End Role="Trombocites" Type="Self.Trombocites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Trombocites">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodBank">
+          <End Role="BloodBanks" Type="Self.BloodBanks" Multiplicity="0..1" />
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="BloodBankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodBankAddress">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="BloodBanks" Type="Self.BloodBanks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="BloodBanks">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodDonationHistoriesDonors">
+          <End Role="Donors" Type="Self.Donors" Multiplicity="0..1" />
+          <End Role="BloodDonationHistories" Type="Self.BloodDonationHistories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donors">
+              <PropertyRef Name="CNP" />
+            </Principal>
+            <Dependent Role="BloodDonationHistories">
+              <PropertyRef Name="DonorCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodDonationHistoriesPatients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+          <End Role="BloodDonationHistories" Type="Self.BloodDonationHistories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="CNP" />
+            </Principal>
+            <Dependent Role="BloodDonationHistories">
+              <PropertyRef Name="DonatedForCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodType">
+          <End Role="BloodTypes" Type="Self.BloodTypes" Multiplicity="0..1" />
+          <End Role="Donors" Type="Self.Donors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Donors">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodTypeID">
+          <End Role="BloodTypes" Type="Self.BloodTypes" Multiplicity="0..1" />
+          <End Role="Plasma" Type="Self.Plasma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Plasma">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodTypeIDTrombocites">
+          <End Role="BloodTypes" Type="Self.BloodTypes" Multiplicity="0..1" />
+          <End Role="Trombocites" Type="Self.Trombocites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Trombocites">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CitiesCountries">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="0..1" />
+          <End Role="Cities" Type="Self.Cities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="Cities">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiseasesResultsBloodDonationHistories">
+          <End Role="BloodDonationHistories" Type="Self.BloodDonationHistories" Multiplicity="1" />
+          <End Role="DiseasesResults" Type="Self.DiseasesResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodDonationHistories">
+              <PropertyRef Name="DonationID" />
+            </Principal>
+            <Dependent Role="DiseasesResults">
+              <PropertyRef Name="DonationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiseasesResultsDiaseases">
+          <End Role="Diseases" Type="Self.Diseases" Multiplicity="1" />
+          <End Role="DiseasesResults" Type="Self.DiseasesResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diseases">
+              <PropertyRef Name="DiseaseID" />
+            </Principal>
+            <Dependent Role="DiseasesResults">
+              <PropertyRef Name="DiseaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctors">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="DoctorCNP" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="DoctorCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hospitals">
+          <End Role="Hospitals" Type="Self.Hospitals" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalID" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HospitalsAddresses">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Hospitals" Type="Self.Hospitals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Hospitals">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications">
+          <End Role="Donors" Type="Self.Donors" Multiplicity="0..1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donors">
+              <PropertyRef Name="CNP" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="DonorCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="Requests" Type="Self.Requests" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="CNP" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="PatientCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsBloodTypes">
+          <End Role="BloodTypes" Type="Self.BloodTypes" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsHospitals">
+          <End Role="Hospitals" Type="Self.Hospitals" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedBloodCells_BloodBanks">
+          <End Role="BloodBanks" Type="Self.BloodBanks" Multiplicity="0..1" />
+          <End Role="RedBloodCells" Type="Self.RedBloodCells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="RedBloodCells">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedBloodCells_BloodTypes">
+          <End Role="BloodTypes" Type="Self.BloodTypes" Multiplicity="0..1" />
+          <End Role="RedBloodCells" Type="Self.RedBloodCells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="RedBloodCells">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Residence">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Donors" Type="Self.Donors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Donors">
+              <PropertyRef Name="ResidenceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BloodDonationModelStoreContainer">
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BloodBanks" EntityType="Self.BloodBanks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BloodDonationHistories" EntityType="Self.BloodDonationHistories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BloodTypes" EntityType="Self.BloodTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diseases" EntityType="Self.Diseases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiseasesResults" EntityType="Self.DiseasesResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donors" EntityType="Self.Donors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hospitals" EntityType="Self.Hospitals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plasma" EntityType="Self.Plasma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RedBloodCells" EntityType="Self.RedBloodCells" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trombocites" EntityType="Self.Trombocites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Address" Association="Self.FK_Address">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Donors" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BankID" Association="Self.FK_BankID">
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+            <End Role="Plasma" EntitySet="Plasma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BankIDTrombocites" Association="Self.FK_BankIDTrombocites">
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+            <End Role="Trombocites" EntitySet="Trombocites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodBank" Association="Self.FK_BloodBank">
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodBankAddress" Association="Self.FK_BloodBankAddress">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodDonationHistoriesDonors" Association="Self.FK_BloodDonationHistoriesDonors">
+            <End Role="Donors" EntitySet="Donors" />
+            <End Role="BloodDonationHistories" EntitySet="BloodDonationHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodDonationHistoriesPatients" Association="Self.FK_BloodDonationHistoriesPatients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="BloodDonationHistories" EntitySet="BloodDonationHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodType" Association="Self.FK_BloodType">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Donors" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodTypeID" Association="Self.FK_BloodTypeID">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Plasma" EntitySet="Plasma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodTypeIDTrombocites" Association="Self.FK_BloodTypeIDTrombocites">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Trombocites" EntitySet="Trombocites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cities" Association="Self.FK_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CitiesCountries" Association="Self.FK_CitiesCountries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Cities" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiseasesResultsBloodDonationHistories" Association="Self.FK_DiseasesResultsBloodDonationHistories">
+            <End Role="BloodDonationHistories" EntitySet="BloodDonationHistories" />
+            <End Role="DiseasesResults" EntitySet="DiseasesResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiseasesResultsDiaseases" Association="Self.FK_DiseasesResultsDiaseases">
+            <End Role="Diseases" EntitySet="Diseases" />
+            <End Role="DiseasesResults" EntitySet="DiseasesResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctors" Association="Self.FK_Doctors">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hospitals" Association="Self.FK_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalsAddresses" Association="Self.FK_HospitalsAddresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Hospitals" EntitySet="Hospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications" Association="Self.FK_Notifications">
+            <End Role="Donors" EntitySet="Donors" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients" Association="Self.FK_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsBloodTypes" Association="Self.FK_PatientsBloodTypes">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsHospitals" Association="Self.FK_PatientsHospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedBloodCells_BloodBanks" Association="Self.FK_RedBloodCells_BloodBanks">
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+            <End Role="RedBloodCells" EntitySet="RedBloodCells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedBloodCells_BloodTypes" Association="Self.FK_RedBloodCells_BloodTypes">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="RedBloodCells" EntitySet="RedBloodCells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Residence" Association="Self.FK_Residence">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Donors" EntitySet="Donors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BloodDonationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Guid" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CityID" Type="Guid" />
+          <NavigationProperty Name="Donors" Relationship="Self.FK_Address" FromRole="Addresses" ToRole="Donors" />
+          <NavigationProperty Name="BloodBanks" Relationship="Self.FK_BloodBankAddress" FromRole="Addresses" ToRole="BloodBanks" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Cities" FromRole="Addresses" ToRole="Cities" />
+          <NavigationProperty Name="Hospitals" Relationship="Self.FK_HospitalsAddresses" FromRole="Addresses" ToRole="Hospitals" />
+          <NavigationProperty Name="Donors1" Relationship="Self.FK_Residence" FromRole="Addresses" ToRole="Donors" />
+        </EntityType>
+        <EntityType Name="BloodBank">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressID" Type="Guid" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_BloodBankAddress" FromRole="BloodBanks" ToRole="Addresses" />
+          <NavigationProperty Name="Plasmas" Relationship="Self.FK_BankID" FromRole="BloodBanks" ToRole="Plasma" />
+          <NavigationProperty Name="Trombocites" Relationship="Self.FK_BankIDTrombocites" FromRole="BloodBanks" ToRole="Trombocites" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_BloodBank" FromRole="BloodBanks" ToRole="Requests" />
+          <NavigationProperty Name="RedBloodCells" Relationship="Self.FK_RedBloodCells_BloodBanks" FromRole="BloodBanks" ToRole="RedBloodCells" />
+        </EntityType>
+        <EntityType Name="BloodDonationHistory">
+          <Key>
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DonorCNP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="DonatedForCNP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="DonationID" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Donor" Relationship="Self.FK_BloodDonationHistoriesDonors" FromRole="BloodDonationHistories" ToRole="Donors" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_BloodDonationHistoriesPatients" FromRole="BloodDonationHistories" ToRole="Patients" />
+          <NavigationProperty Name="DiseasesResults" Relationship="Self.FK_DiseasesResultsBloodDonationHistories" FromRole="BloodDonationHistories" ToRole="DiseasesResults" />
+        </EntityType>
+        <EntityType Name="BloodType">
+          <Key>
+            <PropertyRef Name="BloodTypeID" />
+          </Key>
+          <Property Name="BloodTypeID" Type="Guid" Nullable="false" />
+          <Property Name="Blood" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="RH" Type="Boolean" />
+          <NavigationProperty Name="Donors" Relationship="Self.FK_BloodType" FromRole="BloodTypes" ToRole="Donors" />
+          <NavigationProperty Name="Plasmas" Relationship="Self.FK_BloodTypeID" FromRole="BloodTypes" ToRole="Plasma" />
+          <NavigationProperty Name="Trombocites" Relationship="Self.FK_BloodTypeIDTrombocites" FromRole="BloodTypes" ToRole="Trombocites" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_PatientsBloodTypes" FromRole="BloodTypes" ToRole="Patients" />
+          <NavigationProperty Name="RedBloodCells" Relationship="Self.FK_RedBloodCells_BloodTypes" FromRole="BloodTypes" ToRole="RedBloodCells" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Guid" Nullable="false" />
+          <Property Name="CountryID" Type="Guid" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_Cities" FromRole="Cities" ToRole="Addresses" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_CitiesCountries" FromRole="Cities" ToRole="Countries" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_CitiesCountries" FromRole="Countries" ToRole="Cities" />
+        </EntityType>
+        <EntityType Name="Disease">
+          <Key>
+            <PropertyRef Name="DiseaseID" />
+          </Key>
+          <Property Name="DiseaseID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DiseasesResults" Relationship="Self.FK_DiseasesResultsDiaseases" FromRole="Diseases" ToRole="DiseasesResults" />
+        </EntityType>
+        <EntityType Name="DiseasesResult">
+          <Key>
+            <PropertyRef Name="DiseaseID" />
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DiseaseID" Type="Guid" Nullable="false" />
+          <Property Name="DonationID" Type="Guid" Nullable="false" />
+          <Property Name="JustForModels" Type="Int32" />
+          <NavigationProperty Name="BloodDonationHistory" Relationship="Self.FK_DiseasesResultsBloodDonationHistories" FromRole="DiseasesResults" ToRole="BloodDonationHistories" />
+          <NavigationProperty Name="Disease" Relationship="Self.FK_DiseasesResultsDiaseases" FromRole="DiseasesResults" ToRole="Diseases" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorCNP" />
+          </Key>
+          <Property Name="DoctorCNP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HospitalID" Type="Guid" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Doctors" FromRole="Doctors" ToRole="Requests" />
+          <NavigationProperty Name="Hospital" Relationship="Self.FK_Hospitals" FromRole="Doctors" ToRole="Hospitals" />
+        </EntityType>
+        <EntityType Name="Donor">
+          <Key>
+            <PropertyRef Name="CNP" />
+          </Key>
+          <Property Name="CNP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="ResidenceID" Type="Guid" />
+          <Property Name="AddressID" Type="Guid" />
+          <Property Name="BloodTypeID" Type="Guid" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_Address" FromRole="Donors" ToRole="Addresses" />
+          <NavigationProperty Name="Address1" Relationship="Self.FK_Residence" FromRole="Donors" ToRole="Addresses" />
+          <NavigationProperty Name="BloodDonationHistories" Relationship="Self.FK_BloodDonationHistoriesDonors" FromRole="Donors" ToRole="BloodDonationHistories" />
+          <NavigationProperty Name="BloodType" Relationship="Self.FK_BloodType" FromRole="Donors" ToRole="BloodTypes" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications" FromRole="Donors" ToRole="Notifications" />
+        </EntityType>
+        <EntityType Name="Hospital">
+          <Key>
+            <PropertyRef Name="HospitalID" />
+          </Key>
+          <Property Name="HospitalID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressID" Type="Guid" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_HospitalsAddresses" FromRole="Hospitals" ToRole="Addresses" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_Hospitals" FromRole="Hospitals" ToRole="Doctors" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_PatientsHospitals" FromRole="Hospitals" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="Guid" Nullable="false" />
+          <Property Name="DonorCNP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Donor" Relationship="Self.FK_Notifications" FromRole="Notifications" ToRole="Donors" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="CNP" />
+          </Key>
+          <Property Name="CNP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HospitalID" Type="Guid" />
+          <Property Name="BloodTypeID" Type="Guid" />
+          <NavigationProperty Name="BloodDonationHistories" Relationship="Self.FK_BloodDonationHistoriesPatients" FromRole="Patients" ToRole="BloodDonationHistories" />
+          <NavigationProperty Name="BloodType" Relationship="Self.FK_PatientsBloodTypes" FromRole="Patients" ToRole="BloodTypes" />
+          <NavigationProperty Name="Hospital" Relationship="Self.FK_PatientsHospitals" FromRole="Patients" ToRole="Hospitals" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Patients" FromRole="Patients" ToRole="Requests" />
+        </EntityType>
+        <EntityType Name="Plasma">
+          <Key>
+            <PropertyRef Name="PlasmaID" />
+          </Key>
+          <Property Name="PlasmaID" Type="Guid" Nullable="false" />
+          <Property Name="BankID" Type="Guid" />
+          <Property Name="BloodTypeID" Type="Guid" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="BloodBank" Relationship="Self.FK_BankID" FromRole="Plasma" ToRole="BloodBanks" />
+          <NavigationProperty Name="BloodType" Relationship="Self.FK_BloodTypeID" FromRole="Plasma" ToRole="BloodTypes" />
+        </EntityType>
+        <EntityType Name="RedBloodCell">
+          <Key>
+            <PropertyRef Name="RedBloodCellsID" />
+          </Key>
+          <Property Name="RedBloodCellsID" Type="Guid" Nullable="false" />
+          <Property Name="BankID" Type="Guid" />
+          <Property Name="BloodTypeID" Type="Guid" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="BloodBank" Relationship="Self.FK_RedBloodCells_BloodBanks" FromRole="RedBloodCells" ToRole="BloodBanks" />
+          <NavigationProperty Name="BloodType" Relationship="Self.FK_RedBloodCells_BloodTypes" FromRole="RedBloodCells" ToRole="BloodTypes" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="PatientCNP" />
+          </Key>
+          <Property Name="PatientCNP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DoctorCNP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="BloodBankID" Type="Guid" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="RedBloodCellsQuantity" Type="Int32" />
+          <Property Name="PlasmaQuantity" Type="Int32" />
+          <Property Name="TrombocitesQuantity" Type="Int32" />
+          <NavigationProperty Name="BloodBank" Relationship="Self.FK_BloodBank" FromRole="Requests" ToRole="BloodBanks" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Doctors" FromRole="Requests" ToRole="Doctors" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_Patients" FromRole="Requests" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Trombocite">
+          <Key>
+            <PropertyRef Name="TrombocitesID" />
+          </Key>
+          <Property Name="TrombocitesID" Type="Guid" Nullable="false" />
+          <Property Name="BankID" Type="Guid" />
+          <Property Name="BloodTypeID" Type="Guid" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="BloodBank" Relationship="Self.FK_BankIDTrombocites" FromRole="Trombocites" ToRole="BloodBanks" />
+          <NavigationProperty Name="BloodType" Relationship="Self.FK_BloodTypeIDTrombocites" FromRole="Trombocites" ToRole="BloodTypes" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CNP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Address">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Donors" Type="Self.Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Donors">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodBankAddress">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="BloodBanks" Type="Self.BloodBank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="BloodBanks">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cities">
+          <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HospitalsAddresses">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Hospitals" Type="Self.Hospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Hospitals">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Residence">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Donors" Type="Self.Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Donors">
+              <PropertyRef Name="ResidenceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BankID">
+          <End Role="BloodBanks" Type="Self.BloodBank" Multiplicity="0..1" />
+          <End Role="Plasma" Type="Self.Plasma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Plasma">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BankIDTrombocites">
+          <End Role="BloodBanks" Type="Self.BloodBank" Multiplicity="0..1" />
+          <End Role="Trombocites" Type="Self.Trombocite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Trombocites">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodBank">
+          <End Role="BloodBanks" Type="Self.BloodBank" Multiplicity="0..1" />
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="BloodBankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedBloodCells_BloodBanks">
+          <End Role="BloodBanks" Type="Self.BloodBank" Multiplicity="0..1" />
+          <End Role="RedBloodCells" Type="Self.RedBloodCell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="RedBloodCells">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodDonationHistoriesDonors">
+          <End Role="Donors" Type="Self.Donor" Multiplicity="0..1" />
+          <End Role="BloodDonationHistories" Type="Self.BloodDonationHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donors">
+              <PropertyRef Name="CNP" />
+            </Principal>
+            <Dependent Role="BloodDonationHistories">
+              <PropertyRef Name="DonorCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodDonationHistoriesPatients">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="BloodDonationHistories" Type="Self.BloodDonationHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="CNP" />
+            </Principal>
+            <Dependent Role="BloodDonationHistories">
+              <PropertyRef Name="DonatedForCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiseasesResultsBloodDonationHistories">
+          <End Role="BloodDonationHistories" Type="Self.BloodDonationHistory" Multiplicity="1" />
+          <End Role="DiseasesResults" Type="Self.DiseasesResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodDonationHistories">
+              <PropertyRef Name="DonationID" />
+            </Principal>
+            <Dependent Role="DiseasesResults">
+              <PropertyRef Name="DonationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodType">
+          <End Role="BloodTypes" Type="Self.BloodType" Multiplicity="0..1" />
+          <End Role="Donors" Type="Self.Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Donors">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodTypeID">
+          <End Role="BloodTypes" Type="Self.BloodType" Multiplicity="0..1" />
+          <End Role="Plasma" Type="Self.Plasma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Plasma">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BloodTypeIDTrombocites">
+          <End Role="BloodTypes" Type="Self.BloodType" Multiplicity="0..1" />
+          <End Role="Trombocites" Type="Self.Trombocite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Trombocites">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsBloodTypes">
+          <End Role="BloodTypes" Type="Self.BloodType" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedBloodCells_BloodTypes">
+          <End Role="BloodTypes" Type="Self.BloodType" Multiplicity="0..1" />
+          <End Role="RedBloodCells" Type="Self.RedBloodCell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="RedBloodCells">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CitiesCountries">
+          <End Role="Countries" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Cities" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="Cities">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiseasesResultsDiaseases">
+          <End Role="Diseases" Type="Self.Disease" Multiplicity="1" />
+          <End Role="DiseasesResults" Type="Self.DiseasesResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diseases">
+              <PropertyRef Name="DiseaseID" />
+            </Principal>
+            <Dependent Role="DiseasesResults">
+              <PropertyRef Name="DiseaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctors">
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="DoctorCNP" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="DoctorCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hospitals">
+          <End Role="Hospitals" Type="Self.Hospital" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalID" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications">
+          <End Role="Donors" Type="Self.Donor" Multiplicity="0..1" />
+          <End Role="Notifications" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donors">
+              <PropertyRef Name="CNP" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="DonorCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsHospitals">
+          <End Role="Hospitals" Type="Self.Hospital" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Requests" Type="Self.Request" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="CNP" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="PatientCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BloodDonationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="BloodBanks" EntityType="Self.BloodBank" />
+          <EntitySet Name="BloodDonationHistories" EntityType="Self.BloodDonationHistory" />
+          <EntitySet Name="BloodTypes" EntityType="Self.BloodType" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Diseases" EntityType="Self.Disease" />
+          <EntitySet Name="DiseasesResults" EntityType="Self.DiseasesResult" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Donors" EntityType="Self.Donor" />
+          <EntitySet Name="Hospitals" EntityType="Self.Hospital" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="Plasmas" EntityType="Self.Plasma" />
+          <EntitySet Name="RedBloodCells" EntityType="Self.RedBloodCell" />
+          <EntitySet Name="Requests" EntityType="Self.Request" />
+          <EntitySet Name="Trombocites" EntityType="Self.Trombocite" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Address" Association="Self.FK_Address">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Donors" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodBankAddress" Association="Self.FK_BloodBankAddress">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cities" Association="Self.FK_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalsAddresses" Association="Self.FK_HospitalsAddresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Hospitals" EntitySet="Hospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Residence" Association="Self.FK_Residence">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Donors" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BankID" Association="Self.FK_BankID">
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+            <End Role="Plasma" EntitySet="Plasmas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BankIDTrombocites" Association="Self.FK_BankIDTrombocites">
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+            <End Role="Trombocites" EntitySet="Trombocites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodBank" Association="Self.FK_BloodBank">
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedBloodCells_BloodBanks" Association="Self.FK_RedBloodCells_BloodBanks">
+            <End Role="BloodBanks" EntitySet="BloodBanks" />
+            <End Role="RedBloodCells" EntitySet="RedBloodCells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodDonationHistoriesDonors" Association="Self.FK_BloodDonationHistoriesDonors">
+            <End Role="Donors" EntitySet="Donors" />
+            <End Role="BloodDonationHistories" EntitySet="BloodDonationHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodDonationHistoriesPatients" Association="Self.FK_BloodDonationHistoriesPatients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="BloodDonationHistories" EntitySet="BloodDonationHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiseasesResultsBloodDonationHistories" Association="Self.FK_DiseasesResultsBloodDonationHistories">
+            <End Role="BloodDonationHistories" EntitySet="BloodDonationHistories" />
+            <End Role="DiseasesResults" EntitySet="DiseasesResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodType" Association="Self.FK_BloodType">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Donors" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodTypeID" Association="Self.FK_BloodTypeID">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Plasma" EntitySet="Plasmas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BloodTypeIDTrombocites" Association="Self.FK_BloodTypeIDTrombocites">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Trombocites" EntitySet="Trombocites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsBloodTypes" Association="Self.FK_PatientsBloodTypes">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedBloodCells_BloodTypes" Association="Self.FK_RedBloodCells_BloodTypes">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="RedBloodCells" EntitySet="RedBloodCells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CitiesCountries" Association="Self.FK_CitiesCountries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Cities" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiseasesResultsDiaseases" Association="Self.FK_DiseasesResultsDiaseases">
+            <End Role="Diseases" EntitySet="Diseases" />
+            <End Role="DiseasesResults" EntitySet="DiseasesResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctors" Association="Self.FK_Doctors">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hospitals" Association="Self.FK_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications" Association="Self.FK_Notifications">
+            <End Role="Donors" EntitySet="Donors" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsHospitals" Association="Self.FK_PatientsHospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients" Association="Self.FK_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BloodDonationModelStoreContainer" CdmEntityContainer="BloodDonationEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="BloodDonationModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Address1" ColumnName="Address" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BloodBanks">
+            <EntityTypeMapping TypeName="BloodDonationModel.BloodBank">
+              <MappingFragment StoreEntitySet="BloodBanks">
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BloodDonationHistories">
+            <EntityTypeMapping TypeName="BloodDonationModel.BloodDonationHistory">
+              <MappingFragment StoreEntitySet="BloodDonationHistories">
+                <ScalarProperty Name="DonorCNP" ColumnName="DonorCNP" />
+                <ScalarProperty Name="DonatedForCNP" ColumnName="DonatedForCNP" />
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BloodTypes">
+            <EntityTypeMapping TypeName="BloodDonationModel.BloodType">
+              <MappingFragment StoreEntitySet="BloodTypes">
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+                <ScalarProperty Name="Blood" ColumnName="Blood" />
+                <ScalarProperty Name="RH" ColumnName="RH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="BloodDonationModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="BloodDonationModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diseases">
+            <EntityTypeMapping TypeName="BloodDonationModel.Disease">
+              <MappingFragment StoreEntitySet="Diseases">
+                <ScalarProperty Name="DiseaseID" ColumnName="DiseaseID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiseasesResults">
+            <EntityTypeMapping TypeName="BloodDonationModel.DiseasesResult">
+              <MappingFragment StoreEntitySet="DiseasesResults">
+                <ScalarProperty Name="DiseaseID" ColumnName="DiseaseID" />
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+                <ScalarProperty Name="JustForModels" ColumnName="JustForModels" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="BloodDonationModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctors">
+                <ScalarProperty Name="DoctorCNP" ColumnName="DoctorCNP" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donors">
+            <EntityTypeMapping TypeName="BloodDonationModel.Donor">
+              <MappingFragment StoreEntitySet="Donors">
+                <ScalarProperty Name="CNP" ColumnName="CNP" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="ResidenceID" ColumnName="ResidenceID" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hospitals">
+            <EntityTypeMapping TypeName="BloodDonationModel.Hospital">
+              <MappingFragment StoreEntitySet="Hospitals">
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="BloodDonationModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+                <ScalarProperty Name="DonorCNP" ColumnName="DonorCNP" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="BloodDonationModel.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="CNP" ColumnName="CNP" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plasmas">
+            <EntityTypeMapping TypeName="BloodDonationModel.Plasma">
+              <MappingFragment StoreEntitySet="Plasma">
+                <ScalarProperty Name="PlasmaID" ColumnName="PlasmaID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RedBloodCells">
+            <EntityTypeMapping TypeName="BloodDonationModel.RedBloodCell">
+              <MappingFragment StoreEntitySet="RedBloodCells">
+                <ScalarProperty Name="RedBloodCellsID" ColumnName="RedBloodCellsID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="BloodDonationModel.Request">
+              <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="PatientCNP" ColumnName="PatientCNP" />
+                <ScalarProperty Name="DoctorCNP" ColumnName="DoctorCNP" />
+                <ScalarProperty Name="BloodBankID" ColumnName="BloodBankID" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="RedBloodCellsQuantity" ColumnName="RedBloodCellsQuantity" />
+                <ScalarProperty Name="PlasmaQuantity" ColumnName="PlasmaQuantity" />
+                <ScalarProperty Name="TrombocitesQuantity" ColumnName="TrombocitesQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trombocites">
+            <EntityTypeMapping TypeName="BloodDonationModel.Trombocite">
+              <MappingFragment StoreEntitySet="Trombocites">
+                <ScalarProperty Name="TrombocitesID" ColumnName="TrombocitesID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BloodDonationModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="CNP" ColumnName="CNP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
