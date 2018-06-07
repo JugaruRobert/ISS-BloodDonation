@@ -48,3 +48,14 @@ C:\Users\Mihai\source\repos\BloodDonationISS\BloodDonation\obj\Debug\BloodDonati
 C:\Users\Mihai\source\repos\BloodDonationISS\BloodDonation\obj\Debug\BloodDonation.csproj.CoreCompileInputs.cache
 C:\Users\Mihai\source\repos\BloodDonationISS\BloodDonation\obj\Debug\BloodDonation.exe
 C:\Users\Mihai\source\repos\BloodDonationISS\BloodDonation\obj\Debug\BloodDonation.pdb
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\bin\Debug\BloodDonation.exe.config
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\obj\Debug\BloodDonation.exe
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\obj\Debug\BloodDonation.pdb
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\bin\Debug\BloodDonation.exe
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\bin\Debug\BloodDonation.pdb
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\bin\Debug\EntityFramework.xml
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\obj\Debug\BloodDonation.csprojResolveAssemblyReference.cache
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\obj\Debug\BloodDonation.Form1.resources
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\obj\Debug\BloodDonation.Properties.Resources.resources
+C:\Users\ALEX\Desktop\info\BloodDonation\BloodDonation\obj\Debug\BloodDonation.csproj.GenerateResource.Cache

@@ -106,7 +106,7 @@ namespace BloodDonation
             List<BloodBank> banks = context.BloodBankController.ReadAll().ToList();
             foreach (BloodBank b in banks)
             {
-                bloodBanks.Add(new KeyValuePair<Guid, string>(new Guid(b.BankID.ToString().ToLower()), b.Name));
+                bloodTypes.Add(new KeyValuePair<Guid, string>(b.BankID, b.Name));
             }
         }
 
@@ -192,15 +192,14 @@ namespace BloodDonation
                     {
                         this.loginPanel.Visible = false;
                         this.doctorPanel.Visible = true;
-                        this.doctorRequestsStatusPanel.Visible = true;
-                        this.doctorBloodDonationsPanel.Visible = false;
+                        this.doctorRequestsStatusPanel.Visible = false;
+                        this.doctorBloodDonationsPanel.Visible = true;
                         this.doctorStockPanel.Visible = false;
                         doctor = context.DoctorController.ReadByID(user.CNP);
                         doctorNameLabel.Text = doctor.LastName + "\n" + doctor.FirstName;
                         ReadDiseases();
                         ReadBloodBanks();
                         ReadBloodTypes();
-                        populateDoctorRequestGridView();
                     }
                     else
                     {
@@ -261,63 +260,21 @@ namespace BloodDonation
             donor = null;
         }
 
-        public void populateDoctorRequestGridView()
-        {
-
-            List<Request> source = context.RequestController.ReadAll().ToList();
-            source = source.Where(r => r.DoctorCNP == doctor.DoctorCNP).ToList();
-
-            DataTable table = new DataTable();
-
-            DataColumn col1 = new DataColumn("PatientCNP");
-            table.Columns.Add(col1);
-            DataColumn col2 = new DataColumn("Blood Bank");
-            table.Columns.Add(col2);
-            DataColumn col3 = new DataColumn("Priority");
-            table.Columns.Add(col3);
-            DataColumn col4 = new DataColumn("Red Blood Cells");
-            table.Columns.Add(col4);
-            DataColumn col5 = new DataColumn("Trombocites");
-            table.Columns.Add(col5);
-            DataColumn col6 = new DataColumn("Plasma");
-            table.Columns.Add(col6);
-            DataColumn col7 = new DataColumn("Status");
-            table.Columns.Add(col7);
-
-            foreach (Request r in source)
-            {
-                DataRow row = table.NewRow();
-
-                row["PatientCNP"] = r.PatientCNP;
-                row["Blood Bank"] = bloodBanks[new Guid(r.BloodBankID.GetValueOrDefault().ToString().ToLower())];
-                //row["Blood Bank"] = r.BloodBankID.GetValueOrDefault();
-                row["Priority"] = (r.Priority == 1) ? "Low" : ((r.Priority == 2) ? "Medium" : "High");
-                row["Red Blood Cells"] = r.RedBloodCellsQuantity;
-                row["Trombocites"] = r.TrombocitesQuantity;
-                row["Plasma"] = r.PlasmaQuantity;
-                row["Status"] = (r.IsCompleted.GetValueOrDefault()) ? "Delievered" : "In progress";
-
-                table.Rows.Add(row);
-            }
-
-            doctorRequestsDGV.DataSource = table;
-            doctorRequestsDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        }
-
         private void requestStatusButton_Click(object sender, EventArgs e)
         {
+            
             this.doctorBloodDonationsPanel.Visible = false;
             this.doctorStockPanel.Visible = false;
             this.doctorRequestsStatusPanel.Visible = true;
-            //Dictionary<string, bool> columns = new Dictionary<string, bool>();
-            //columns.Add("PatientCNP", true);
-            //columns.Add("Priority", true);
-            //columns.Add("RedBloodCellsQuantity", true);
-            //columns.Add("PlasmaQuantity", true);
-            //columns.Add("TrombocitesQuantity", true);
-            //populateGridView("Requests", columns, requests, centerRequestsDGV);
-            populateDoctorRequestGridView();
-
+            List<Request> requests = context.RequestController.ReadAll().ToList();
+            requests = requests.Where(r => r.DoctorCNP == doctor.DoctorCNP).ToList();
+            Dictionary<string, bool> columns = new Dictionary<string, bool>();
+            columns.Add("PatientCNP", true);
+            columns.Add("Priority", true);
+            columns.Add("RedBloodCellsQuantity", true);
+            columns.Add("PlasmaQuantity", true);
+            columns.Add("TrombocitesQuantity", true);
+            populateGridView("Requests", columns, requests, centerRequestsDGV);
         }
 
         private void stockButton_Click(object sender, EventArgs e)
@@ -597,19 +554,32 @@ namespace BloodDonation
             {
                 string specificCNP = specificDonation.Text;
                 Patient patient = this.context.PatientController.ReadByID(specificCNP);
-                if(patient == null)
+                Request r = context.RequestController.ReadByID(patient.CNP);
+                if (patient == null || r == null)
                 {
                     MessageBox.Show("There is no patient with this CNP that needs blood! Please contact the nearest blood donation center if you consider this as being a mistake!", "We are sorry!", MessageBoxButtons.OK);
                 }
                 else
                 {
-                    BloodDonationHistory donation = new BloodDonationHistory(donor.CNP, patient.CNP, Guid.NewGuid());
-                    this.context.BloodDonationHistoryController.InsertEmptySpecific(donation);
+                    if ( r.IsCompleted == true)
+                    {
+                        MessageBox.Show("There is no patient with this CNP that needs blood! Please contact the nearest blood donation center if you consider this as being a mistake!", "We are sorry!", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        BloodDonationHistory donation = new BloodDonationHistory(donor.CNP, patient.CNP, Guid.NewGuid());
+                        this.context.BloodDonationHistoryController.InsertEmptySpecific(donation);
 
-                    MessageBox.Show("Your request has been sent! Please go to the nearest donation center for the actual donation!", "You are a life saver!", MessageBoxButtons.OK);
-                    this.donatePanel.Visible = false;
-                    this.donorPanel.Visible = true;
+
+                        r.Priority = 3;
+                        this.context.RequestController.Update(r);
+
+                        MessageBox.Show("Your request has been sent! Please go to the nearest donation center for the actual donation!", "You are a life saver!", MessageBoxButtons.OK);
+                        this.donatePanel.Visible = false;
+                        this.donorPanel.Visible = true;
+                    }
                 }
+                
             }
         }
 
@@ -1080,6 +1050,11 @@ namespace BloodDonation
                     drops.Add(requestPatientBox);
 
                 string patientCNP = requestPatientBox.SelectedItem.ToString().Split(':')[0];
+
+                //testing if readbyid returns null
+                //if (context.DonorController.ReadByID(patientCNP) == null)  
+                   // MessageBox.Show("It is null");
+
                 int redBloodCellsQuantity = 0, trombocitesQuantity = 0, plasmaQuantity = 0;
 
                 try
@@ -1121,6 +1096,10 @@ namespace BloodDonation
                     Request r = context.RequestController.ReadByID(patientCNP);
                     if (r != null && r.IsCompleted == false)
                         throw new Exception("Someone already requested blood for this patient.");
+
+                    if (context.DonorController.ReadByID(patientCNP) != null)
+                        priority = 3;
+                    
 
                     Request request = new Request(patientCNP, doctorCNP, bloodBankID, priority, redBloodCellsQuantity, plasmaQuantity, trombocitesQuantity, false);
                     context.RequestController.Insert(request);
