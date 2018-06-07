@@ -10,7 +10,7 @@ namespace BloodDonation.Repository.Core
     public class RepositoryContext : IDisposable
     {
         #region Constants
-        internal string CONNECTION_STRING = "Data Source=DESKTOP-J3AN5BF\\SQLEXPRESS;Initial Catalog=BloodDonation; Integrated Security=True";
+        internal string CONNECTION_STRING = "Data Source=MADALINA\\SQLEXPRESS01;Initial Catalog=BloodDonation; Integrated Security=True";
         #endregion
 
         #region Members
